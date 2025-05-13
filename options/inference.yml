@@ -1,0 +1,28 @@
+## general settings
+name: us_base_fre_inference
+use_tb_logger: false
+model: FreDegSRModel
+scale: 4
+gpu_ids: [0]
+
+metrics: [niqe, pi, musiq]
+
+datasets:
+  test0:
+    name: us
+    mode: SingleDataset
+    data_type: lmdb
+    dataroot: /home/ps/zhencunjiang/US_sr/us_data/clinical_lr.lmdb
+
+#### network structures
+networks:
+  netSR:
+    which_network: EDSR
+    setting:
+      nf: 64
+      nb: 16
+      res_scale: 1
+      upscale: 4
+    pretrain: 
+      path: /home/ps/zhencunjiang/US_sr/USBSR/experiments/us_fre_doubledeg/models/latest_netSR.pth
+      strict_load: true
